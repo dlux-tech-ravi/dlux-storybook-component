@@ -45,7 +45,7 @@ export const DluxLoader: React.FC<DluxLoaderProps> = ({
   const maybeIcon = iconName ? Icons[iconName] : undefined;
   const LucideIcon =
     maybeIcon && typeof maybeIcon === 'object' && 'render' in maybeIcon
-      ? (maybeIcon as React.ElementType)
+      ? (maybeIcon as unknown as React.ElementType)
       : Icons.LoaderCircle;
 
   const containerClasses = classNames('flex items-center justify-center', {
@@ -63,7 +63,8 @@ export const DluxLoader: React.FC<DluxLoaderProps> = ({
     color,
   };
 
-  const percentageSize = size === 'lg' ? 'w-32 h-32' : size === 'sm' ? 'w-12 h-12' : 'w-20 h-20';
+  const percentageSize =
+    size === 'lg' ? 'w-32 h-32' : size === 'sm' ? 'w-12 h-12' : 'w-20 h-20';
 
   const [internalProgress, setInternalProgress] = useState(0);
 
