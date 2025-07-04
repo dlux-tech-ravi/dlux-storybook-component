@@ -1,4 +1,7 @@
+'use client';
+
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface DluxProductCardProps {
   imageUrl: string;
@@ -35,30 +38,32 @@ export const DluxProductCard: React.FC<DluxProductCardProps> = ({
       className="max-w-sm rounded-lg overflow-hidden shadow p-4"
       style={{ backgroundColor: bgColor, color: textColor }}
     >
-      <img
-        src={validImageUrl}
-        alt={title}
-        className="w-full h-48 object-cover rounded-md"
-      />
+      <div className="w-full h-48 relative rounded-md overflow-hidden">
+        <Image
+          src={validImageUrl}
+          alt={title}
+          fill
+          style={{ objectFit: 'cover' }}
+          className="rounded-md"
+        />
+      </div>
 
       <div className="mt-4">
         <h2 className="text-xl font-semibold">{title}</h2>
         <p className="text-sm mb-2">{inStock ? 'In stock' : 'Out of stock'}</p>
 
         <div className="flex gap-2 mb-4">
-  {(Array.isArray(colors) ? colors : []).map((color, i) => (
-    <div
-      key={i}
-      className="w-5 h-5 rounded-full border border-gray-300"
-      style={{ backgroundColor: color }}
-    />
-  ))}
-</div>
-
+          {(Array.isArray(colors) ? colors : []).map((color, i) => (
+            <div
+              key={i}
+              className="w-5 h-5 rounded-full border border-gray-300"
+              style={{ backgroundColor: color }}
+            />
+          ))}
+        </div>
 
         <div className="flex items-center justify-between mb-4">
           <p className="text-lg font-medium">{price}</p>
-          
         </div>
 
         <button
