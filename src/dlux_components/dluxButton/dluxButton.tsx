@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, type ElementType } from 'react';
 import classNames from 'classnames';
 import * as Icons from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
 
 interface DluxButtonProps {
   label: string;
@@ -37,7 +36,7 @@ export const DluxButton: React.FC<DluxButtonProps> = ({
   onClick,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
-  const Icon: LucideIcon | null = iconName ? Icons[iconName] : null;
+  const Icon: ElementType | null = iconName ? Icons[iconName] : null;
 
   const baseStyles =
     'inline-flex items-center justify-center font-medium transition-colors duration-200 ease-in-out focus:outline-none';
@@ -79,13 +78,9 @@ export const DluxButton: React.FC<DluxButtonProps> = ({
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {showIcon && Icon && iconPosition === 'left' && (
-        <Icon size={18} className="mr-2" />
-      )}
+      {showIcon && Icon && iconPosition === 'left' && <Icon size={18} className="mr-2" />}
       <span>{label}</span>
-      {showIcon && Icon && iconPosition === 'right' && (
-        <Icon size={18} className="ml-2" />
-      )}
+      {showIcon && Icon && iconPosition === 'right' && <Icon size={18} className="ml-2" />}
     </button>
   );
 };
