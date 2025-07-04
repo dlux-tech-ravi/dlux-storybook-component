@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { DluxButton } from "./dluxButton";
+import { DluxButton } from "../src/dlux_components/dluxButton/dluxButton";
 import * as Icons from "lucide-react";
 
 // Extract all lucide icon names (as strings)

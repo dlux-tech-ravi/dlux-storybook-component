@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DluxProductCard } from './dluxProductCard';
+import { DluxProductCard } from '../src/dlux_components/dluxProductCard/dluxProductCard';
 
 const meta: Meta<typeof DluxProductCard> = {
   title: 'Components/dluxProductCard',

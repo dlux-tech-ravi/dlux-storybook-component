@@ -1,6 +1,6 @@
 // DluxLoader.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
-import { DluxLoader } from './DluxLoader';
+import { DluxLoader } from '../src/dlux_components/dluxLoader/DluxLoader';
 import * as Icons from 'lucide-react';
 
 const iconOptions = Object.keys(Icons).sort();
