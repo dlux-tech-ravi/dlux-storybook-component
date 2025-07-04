@@ -1,4 +1,4 @@
-import React, { useState, type ElementType } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import * as Icons from 'lucide-react';
 
@@ -36,7 +36,7 @@ export const DluxButton: React.FC<DluxButtonProps> = ({
   onClick,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
-  const Icon: ElementType | null = iconName ? Icons[iconName] : null;
+  const Icon = iconName ? (Icons[iconName] as React.ElementType) : null;
 
   const baseStyles =
     'inline-flex items-center justify-center font-medium transition-colors duration-200 ease-in-out focus:outline-none';
