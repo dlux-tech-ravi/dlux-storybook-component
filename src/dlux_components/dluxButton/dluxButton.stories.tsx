@@ -6,7 +6,7 @@ import * as Icons from "lucide-react";
 const iconOptions = Object.keys(Icons).sort();
 
 const meta: Meta<typeof DluxButton> = {
-  title: "Components/dluxButton",
+  title: "Components/Button",
   component: DluxButton,
   tags: ["autodocs"],
  

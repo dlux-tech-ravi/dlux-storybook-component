@@ -6,7 +6,7 @@ import * as Icons from 'lucide-react';
 const iconOptions = Object.keys(Icons).sort();
 
 const meta: Meta<typeof DluxLoader> = {
-  title: 'Components/DluxLoader',
+  title: 'Components/Loader',
   component: DluxLoader,
   tags: ['autodocs'],
   argTypes: {
