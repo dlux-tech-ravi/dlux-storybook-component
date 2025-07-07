@@ -12,12 +12,12 @@ const config: StorybookConfig = {
     "@storybook/addon-vitest",
     "@storybook/addon-essentials"
   ],
-  "framework": {
+  framework: {
     "name": "@storybook/nextjs-vite",
     "options": {}
   },
-  "staticDirs": [
-    "..\\public"
+  staticDirs: [
+    '../public'
   ]
 };
 export default config;
