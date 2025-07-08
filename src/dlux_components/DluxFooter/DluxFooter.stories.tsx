@@ -4,7 +4,7 @@ import { DluxFooter } from './DluxFooter';
 import { Facebook, Instagram, Youtube } from 'lucide-react';
 
 const meta: Meta<typeof DluxFooter> = {
-  title: 'Components/DluxFooter',
+  title: 'Components/Footer',
   component: DluxFooter,
   tags: ["autodocs"],
   parameters: {
