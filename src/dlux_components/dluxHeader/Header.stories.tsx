@@ -1,82 +1,102 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Header } from './Header';
+// src/components/Header.stories.tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Header } from "./Header";
 
 const meta: Meta<typeof Header> = {
-  title: 'Components/Header',
+  title: "Components/Header",
   component: Header,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
-    headerType: {
-      control: 'select',
-      options: ['default', 'with-nav', 'with-actions', 'full'],
-      description: 'Layout preset that shows specific groups of header elements.',
-    },
-    bgColor: { control: 'color' },
-    textColor: { control: 'color' },
-    navItems: { control: 'object' },
-    actions: { control: 'object' },
-    logoSrc: { control: 'text' },
-    avatarUrl: { control: 'text' },
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: 'A fully flexible and customizable header with selectable layout types.',
-      },
-    },
+    bgColor: { control: "color" },
+    textColor: { control: "color" },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Header>;
 
-const navList = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-];
+const defaultProps = {
+  title: "DLUX",
+  logoSrc: "https://placehold.co/100x40?text=Logo",
+  bgColor: "#000000",
+  textColor: "#ffffff",
+};
 
-const actionList = [
-  { label: 'Dashboard' },
-  { label: 'Logout' },
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Users", href: "/users" },
+  { label: "Reports", href: "/reports" },
 ];
 
 export const Default: Story = {
   args: {
-    title: 'DLUX App',
-    headerType: 'default',
-    bgColor: '#2563EB',
-    textColor: '#FFFFFF',
+    ...defaultProps,
+    variant: "default",
+    navItems,
   },
 };
 
 export const WithNav: Story = {
   args: {
-    title: 'DLUX Navigation',
-    headerType: 'with-nav',
-    navItems: navList,
-    bgColor: '#1E40AF',
+    ...defaultProps,
+    variant: "with-nav",
+    navItems,
+  },
+};
+
+export const WithSearch: Story = {
+  args: {
+    ...defaultProps,
+    variant: "with-search",
   },
 };
 
 export const WithActions: Story = {
   args: {
-    title: 'DLUX Actions',
-    headerType: 'with-actions',
-    actions: actionList,
-    bgColor: '#4B5563',
+    ...defaultProps,
+    variant: "with-actions",
   },
 };
 
-export const Full: Story = {
+export const WithSwitcher: Story = {
   args: {
-    logoSrc: '/logo.png',
-    navItems: navList,
-    headerType: 'full',
-    actions: actionList,
-    avatarUrl: 'https://i.pravatar.cc/40',
-    notificationCount: 3,
-    bgColor: '#111827',
-    textColor: '#FFFFFF',
+    ...defaultProps,
+    variant: "with-switcher",
+  },
+};
+
+export const WithSideNav: Story = {
+  args: {
+    ...defaultProps,
+    variant: "with-sidenav",
+  },
+};
+
+export const WithUserInfo: Story = {
+  args: {
+    ...defaultProps,
+    variant: "with-user-info",
+  },
+};
+
+export const WithBreadcrumb: Story = {
+  args: {
+    ...defaultProps,
+    variant: "with-breadcrumb",
+  },
+};
+
+export const AuthHeader: Story = {
+  args: {
+    ...defaultProps,
+    variant: "auth-header",
+  },
+};
+
+export const Dashboard: Story = {
+  args: {
+    ...defaultProps,
+    variant: "dashboard",
+    navItems,
   },
 };

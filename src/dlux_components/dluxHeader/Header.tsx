@@ -1,151 +1,124 @@
-import React from 'react';
+// src/components/Header.tsx
+import React, { useState } from "react";
 
-export type NavItem = {
+type HeaderVariant =
+  | "default"
+  | "with-nav"
+  | "with-search"
+  | "with-actions"
+  | "with-switcher"
+  | "with-sidenav"
+  | "with-user-info"
+  | "with-breadcrumb"
+  | "auth-header"
+  | "dashboard";
+
+type NavItem = {
   label: string;
   href: string;
 };
 
-export type ActionButton = {
-  label: string;
-  onClick?: () => void;
-};
-
-export type HeaderType = 'default' | 'with-nav' | 'with-actions' | 'full';
-
-export type HeaderProps = {
+interface HeaderProps {
+  variant?: HeaderVariant;
   title?: string;
   logoSrc?: string;
   navItems?: NavItem[];
-  showSideNav?: boolean;
-  showSwitcher?: boolean;
-  showActions?: boolean;
-  actions?: ActionButton[];
-  showNotification?: boolean;
-  notificationCount?: number;
-  avatarUrl?: string;
-  showSearch?: boolean;
   bgColor?: string;
   textColor?: string;
-  headerType?: HeaderType;
-};
+}
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'DLUX App',
+  variant = "default",
+  title = "DLUX",
   logoSrc,
   navItems = [],
-  showSideNav,
-  showSwitcher,
-  showActions,
-  actions = [],
-  showNotification,
-  notificationCount = 0,
-  avatarUrl,
-  showSearch,
-  bgColor = '#2563EB',
-  textColor = '#FFFFFF',
-  headerType = 'default',
+  bgColor = "#000000",
+  textColor = "#ffffff",
 }) => {
-  // Controlled layout from headerType
-  const isFull = headerType === 'full';
-  const isNav = headerType === 'with-nav' || isFull;
-  const isActions = headerType === 'with-actions' || isFull;
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  // Final rendering checks
-  const renderNav = navItems.length > 0 && isNav;
-  const renderActions = showActions || isActions;
-  const renderSideNav = isFull || showSideNav;
-  const renderSwitcher = isFull || showSwitcher;
-  const renderNotification = isFull || showNotification;
-  const renderSearch = isFull || showSearch;
+  const showNav = ["with-nav", "dashboard"].includes(variant) && navItems.length > 0;
+  const showSearch = variant === "with-search";
+  const showActions = variant === "with-actions";
+  const showSwitcher = variant === "with-switcher";
+  const showSideNav = variant === "with-sidenav";
+  const showUserInfo = variant === "with-user-info";
+  const showBreadcrumb = variant === "with-breadcrumb";
+  const showLogin = variant === "auth-header";
+  const isDashboard = variant === "dashboard";
 
   return (
     <header
-      className="w-full flex justify-between items-center flex-wrap p-4"
+      className="flex items-center justify-between px-6 py-4 shadow w-full relative"
       style={{ backgroundColor: bgColor, color: textColor }}
     >
-      {/* Left Section */}
+      {/* Left */}
       <div className="flex items-center gap-4">
-        {renderSideNav && (
-          <button className="text-xl" aria-label="Toggle Sidebar">
-            ☰
-          </button>
-        )}
-
-        {logoSrc ? (
-          <img src={logoSrc} alt="Logo" className="h-8 w-auto" />
-        ) : (
-          <h1 className="text-xl font-bold">{title}</h1>
-        )}
-
-        {renderNav && (
-          <nav className="hidden md:flex ml-6 space-x-4">
-            {navItems.map((item, idx) => (
-              <a key={idx} href={item.href} className="hover:underline">
-                {item.label}
-              </a>
-            ))}
-          </nav>
+        {logoSrc && <img src={logoSrc} alt="Logo" className="h-8 w-auto" />}
+        {title && <h1 className="text-xl font-bold">{title}</h1>}
+        {showBreadcrumb && (
+          <div className="ml-4 text-sm opacity-70">Home / Page</div>
         )}
       </div>
 
-      {/* Right Section */}
-      <div className="flex items-center gap-4 mt-2 md:mt-0">
-        {renderSearch && (
+      {/* Center Nav */}
+      {showNav && (
+        <nav className="flex gap-6">
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="hover:underline text-sm"
+              style={{ color: textColor }}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      )}
+
+      {/* Right Actions */}
+      <div className="flex items-center gap-4">
+        {showSearch && (
           <input
-            type="text"
+            className="border px-2 py-1 rounded"
             placeholder="Search..."
-            className="px-2 py-1 rounded text-black"
+            style={{ color: "#000" }}
           />
         )}
-
-        {renderSwitcher && (
-          <select className="text-black px-2 py-1 rounded">
-            <option value="en">EN</option>
-            <option value="fr">FR</option>
-          </select>
+        {showSwitcher && <button className="text-sm">Switcher</button>}
+        {showActions && <button className="text-sm">Action</button>}
+        {showSideNav && <button className="text-xl">☰</button>}
+        {showUserInfo && <span className="text-sm">Welcome, Soundar</span>}
+        {showLogin && (
+          <button className="bg-blue-600 text-white px-3 py-1 rounded">
+            Login
+          </button>
         )}
 
-        {renderActions &&
-          (actions.length > 0 ? (
-            actions.map((btn, i) => (
-              <button
-                key={i}
-                onClick={btn.onClick}
-                className="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100"
-              >
-                {btn.label}
-              </button>
-            ))
-          ) : (
-            <>
-              <button className="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">
-                Login
-              </button>
-              <button className="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">
-                Signup
-              </button>
-            </>
-          ))}
-
-        {renderNotification && (
+        {/* Avatar & Dropdown for dashboard */}
+        {isDashboard && (
           <div className="relative">
-            <span role="img" aria-label="bell">
-              🔔
-            </span>
-            {notificationCount > 0 && (
-              <span className="absolute -top-2 -right-2 text-xs bg-red-600 text-white rounded-full px-1">
-                {notificationCount}
-              </span>
+            <img
+              src="https://i.pravatar.cc/36"
+              alt="Avatar"
+              className="w-9 h-9 rounded-full cursor-pointer"
+              onClick={() => setShowDropdown(!showDropdown)}
+            />
+            {showDropdown && (
+              <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md z-10">
+                <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">
+                  Profile
+                </a>
+                <a href="/settings" className="block px-4 py-2 hover:bg-gray-100">
+                  Settings
+                </a>
+                <a href="/logout" className="block px-4 py-2 hover:bg-gray-100">
+                  Logout
+                </a>
+              </div>
             )}
           </div>
-        )}
-
-        {avatarUrl && (
-          <img
-            src={avatarUrl}
-            alt="Avatar"
-            className="h-8 w-8 rounded-full object-cover"
-          />
         )}
       </div>
     </header>
