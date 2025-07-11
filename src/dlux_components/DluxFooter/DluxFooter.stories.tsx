@@ -84,8 +84,8 @@ export default meta;
 type Story = StoryObj<typeof DluxFooter>;
 
 const baseArgs = {
-  logoText: 'AJNA',
-  showLogoText: true,
+  logoText: 'DLUX',
+  showLogoText: false,
   logoImageUrl: 'https://images.ctfassets.net/pj0maraabon4/Q6PwYeP5BySxbfN7iGa7J/7aed2e5efb07f0ab6dfad0343f2ffcbd/logo_gif.gif',
   description: 'Sound Healing & Music Therapy Elementor Template Kit',
   socialIcons: [
@@ -101,7 +101,22 @@ const baseArgs = {
       { label: 'Yoga Music', url: '#' },
     ],
   },
-  copyrightText: '© 2025 AJNA. All rights reserved.',
+  column3: {
+      heading: 'Quick Links',
+      links: [
+        { label: 'Retreats', url: '#' },
+        { label: 'Workshops', url: '#' },
+        { label: 'Events', url: '#' },
+      ],
+    },
+    column4: {
+      heading: 'Stay in Touch',
+      links: [
+        { label: 'Contact', url: '#' },
+        { label: 'Newsletter', url: '#' },
+      ],
+    },
+  copyrightText: '© 2025 DLUX. All rights reserved.',
   legalLinks: [
     { label: 'Privacy Policy', url: '#' },
     { label: 'Terms of Service', url: '#' },
